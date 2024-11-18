@@ -1,5 +1,6 @@
 import { MakeData } from "../helpers/makeData";
 import { SignUpPage } from "../pages/signUpPage";
+import { signUpTestData } from "../helpers/signUpTestData";
 
 const signUpPage = new SignUpPage;
 
@@ -14,86 +15,86 @@ describe('Sign Up page tests', () => {
 
   it('Verify Sign Up functionality with valid data', () => {
     signUpPage.enterTextInInputByName(signUpPage.email, email);
-    signUpPage.enterTextInInputByName(signUpPage.firstName, 'Name');
-    signUpPage.enterTextInInputByName(signUpPage.lastName, 'Surname');
+    signUpPage.enterTextInInputByName(signUpPage.firstName, signUpTestData.name);
+    signUpPage.enterTextInInputByName(signUpPage.lastName, signUpTestData.surname);
     signUpPage.enterTextInInputByName(signUpPage.password, password);
     signUpPage.clickCheckboxByLocator(signUpPage.termsAndConditions);
     signUpPage.clickSignUpBtn();
   });
 
   it('Verify Sign Up functionality with empty email field', () => {
-    signUpPage.enterTextInInputByName(signUpPage.firstName, 'Name');
-    signUpPage.enterTextInInputByName(signUpPage.lastName, 'Surname');
+    signUpPage.enterTextInInputByName(signUpPage.firstName, signUpTestData.name);
+    signUpPage.enterTextInInputByName(signUpPage.lastName, signUpTestData.surname);
     signUpPage.enterTextInInputByName(signUpPage.password, password);
     signUpPage.clickCheckboxByLocator(signUpPage.termsAndConditions);
     signUpPage.clickSignUpBtn();
-    signUpPage.checkAlertHaveText(signUpPage.emailAlert, 'This field is required');
+    signUpPage.checkAlertHaveText(signUpPage.emailAlert, signUpTestData.emailAlert);
   });
 
   it('Verify Sign Up functionality with invalid email', () => {
-    signUpPage.enterTextInInputByName(signUpPage.email, 'invalidemail');
-    signUpPage.enterTextInInputByName(signUpPage.firstName, 'Name');
-    signUpPage.enterTextInInputByName(signUpPage.lastName, 'Surname');
+    signUpPage.enterTextInInputByName(signUpPage.email, signUpTestData.invalidEmail);
+    signUpPage.enterTextInInputByName(signUpPage.firstName, signUpTestData.name);
+    signUpPage.enterTextInInputByName(signUpPage.lastName, signUpTestData.surname);
     signUpPage.enterTextInInputByName(signUpPage.password, password);
     signUpPage.clickCheckboxByLocator(signUpPage.termsAndConditions);
     signUpPage.clickSignUpBtn();
-    signUpPage.checkAlertHaveText(signUpPage.errorAlert, 'That email and password combination is not valid, or your browser could not be authenticated via recaptcha. Please try again');
+    signUpPage.checkAlertHaveText(signUpPage.errorAlert, signUpTestData.emailPasswordAlert);
   });
 
   it('Verify Sign Up functionality without selecting terms and conditions checkbox', () => {
     signUpPage.enterTextInInputByName(signUpPage.email, email);
-    signUpPage.enterTextInInputByName(signUpPage.firstName, 'Name');
-    signUpPage.enterTextInInputByName(signUpPage.lastName, 'Surname');
+    signUpPage.enterTextInInputByName(signUpPage.firstName, signUpTestData.name);
+    signUpPage.enterTextInInputByName(signUpPage.lastName, signUpTestData.surname);
     signUpPage.enterTextInInputByName(signUpPage.password, password);
     signUpPage.clickSignUpBtn();
-    signUpPage.checkAlertHaveText(signUpPage.termCondtnAlert, 'Please accept the terms and conditions');
+    signUpPage.checkAlertHaveText(signUpPage.termCondtnAlert, signUpTestData.termCondtnAlert);
   });
 
   it('Fill in password input with less than 12 characters', () => {
     signUpPage.enterTextInInputByName(signUpPage.email, email);
-    signUpPage.enterTextInInputByName(signUpPage.firstName, 'Name');
-    signUpPage.enterTextInInputByName(signUpPage.lastName, 'Surname');
-    signUpPage.enterTextInInputByName(signUpPage.password, 'qkrtiolanvi');
+    signUpPage.enterTextInInputByName(signUpPage.firstName, signUpTestData.name);
+    signUpPage.enterTextInInputByName(signUpPage.lastName, signUpTestData.surname);
+    signUpPage.enterTextInInputByName(signUpPage.password, signUpTestData.shortPassword);
     signUpPage.clickCheckboxByLocator(signUpPage.termsAndConditions);
     signUpPage.clickSignUpBtn();
-    signUpPage.checkAlertHaveText(signUpPage.passwordMinLengthAlert, 'Password must be at least 12 characters');
+    signUpPage.checkAlertHaveText(signUpPage.passwordMinLengthAlert, signUpTestData.passwordMinLengthAlert);
   });
 
   it('Verify Create password functionality with password that consist only from numbers', () => {
     signUpPage.enterTextInInputByName(signUpPage.email, email);
-    signUpPage.enterTextInInputByName(signUpPage.firstName, 'Name');
-    signUpPage.enterTextInInputByName(signUpPage.lastName, 'Surname');
-    signUpPage.enterTextInInputByName(signUpPage.password, '123456789012');
+    signUpPage.enterTextInInputByName(signUpPage.firstName, signUpTestData.name);
+    signUpPage.enterTextInInputByName(signUpPage.lastName, signUpTestData.surname);
+    signUpPage.enterTextInInputByName(signUpPage.password, signUpTestData.numberPass);
     signUpPage.clickCheckboxByLocator(signUpPage.termsAndConditions);
     signUpPage.clickSignUpBtn();
-    signUpPage.checkAlertHaveText(signUpPage.passwordOneSymbolAlert, 'Password must contain at least one symbol');
+    signUpPage.checkAlertHaveText(signUpPage.passwordOneSymbolAlert, signUpTestData.passwordOneSymbolAlert);
   });
 
   it('Verify Create password functionality with password that consists only of numbers and lower-case letters', () => {
     signUpPage.enterTextInInputByName(signUpPage.email, email);
-    signUpPage.enterTextInInputByName(signUpPage.firstName, 'Name');
-    signUpPage.enterTextInInputByName(signUpPage.lastName, 'Surname');
-    signUpPage.enterTextInInputByName(signUpPage.password, 'qlma12345678');
+    signUpPage.enterTextInInputByName(signUpPage.firstName, signUpTestData.name);
+    signUpPage.enterTextInInputByName(signUpPage.lastName, signUpTestData.surname);
+    signUpPage.enterTextInInputByName(signUpPage.password, signUpTestData.lowCaseLettersNumPass);
     signUpPage.clickCheckboxByLocator(signUpPage.termsAndConditions);
     signUpPage.clickSignUpBtn();
-    signUpPage.checkAlertHaveText(signUpPage.passwordUpperCaseAlert, 'Password must contain at least one upper-case letter');
+    signUpPage.checkAlertHaveText(signUpPage.passwordUpperCaseAlert, signUpTestData.passwordUpperCaseAlert);
   });
 
   it('Verify Create password functionality with password that consists only of numbers and uppercase letters', () => {
     signUpPage.enterTextInInputByName(signUpPage.email, email);
-    signUpPage.enterTextInInputByName(signUpPage.firstName, 'Name');
-    signUpPage.enterTextInInputByName(signUpPage.lastName, 'Surname');
-    signUpPage.enterTextInInputByName(signUpPage.password, 'QASZ12345678');
+    signUpPage.enterTextInInputByName(signUpPage.firstName, signUpTestData.name);
+    signUpPage.enterTextInInputByName(signUpPage.lastName, signUpTestData.surname);
+    signUpPage.enterTextInInputByName(signUpPage.password, signUpTestData.upperCaseLetterNumPass);
     signUpPage.clickCheckboxByLocator(signUpPage.termsAndConditions);
     signUpPage.clickSignUpBtn();
-    signUpPage.checkAlertHaveText(signUpPage.passwordLowerCaseAlert, 'Password must contain at least one lower-case');
+    signUpPage.checkAlertHaveText(signUpPage.passwordLowerCaseAlert, signUpTestData.passwordLowerCaseAlert);
   });
 
   it('Entered password displayed after user click show password icon', () => {
     signUpPage.enterTextInInputByName(signUpPage.password, password);
-    signUpPage.checkPassInputType('password');
+    signUpPage.checkPassInputType(signUpTestData.passwordTypeInput);
     signUpPage.clickShowPassBtn();
-    signUpPage.checkPassInputType('text');
+    signUpPage.checkPassInputType(signUpTestData.textTypeInput);
     signUpPage.checkInputValue(signUpPage.password, password);
   });
 });
